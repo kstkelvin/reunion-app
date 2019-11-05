@@ -15,10 +15,10 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::group(array('middleware' => ['auth', 'admin']), function ()
+Route::group(array('middleware' => 'auth'), function ()
 {
   Route::get('/salas', 'SalaController@index');
-  Route::get('/salar/adicionar', 'SalaController@create');
+  Route::get('/salas/adicionar', 'SalaController@create');
   Route::post('/salas', 'SalaController@store');
   Route::get('/salas/{sala}/editar','SalaController@edit');
   Route::post('/salas/{sala}', 'SalaController@update');
