@@ -114,7 +114,7 @@ class SalaController extends Controller
     $sala = Sala::where('id', $id)->firstOrFail();
     $sala->nome = request()->get('nome');
     $sala->save();
-    return redirect('/salas'. $id);
+    return redirect('/salas/'. $id);
   }
 
   /**
@@ -123,10 +123,9 @@ class SalaController extends Controller
   * @param  \App\Sala  $sala
   * @return \Illuminate\Http\Response
   */
-  public function destroy(Sala $sala)
+  public function destroy($id)
   {
-    return view('salas.index', [
-      Sala::destroy($sala->id)
-    ]);
+    Sala::destroy($id);
+    return redirect('salas');
   }
 }
