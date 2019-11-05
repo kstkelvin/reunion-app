@@ -46,7 +46,9 @@ class SalaController extends Controller
      */
     public function show(Sala $sala)
     {
-        //
+      return view('sala', [
+        $sala = Sala::where('id', $sala->id)->firstOrFail()
+      ]);
     }
 
     /**

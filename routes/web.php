@@ -17,21 +17,14 @@ Route::get('/', function () {
 
 Route::group(array('middleware' => ['auth', 'admin']), function ()
 {
-  Route::get('/home', 'HomeController@index')->name('home');
-  Route::get('/salas', 'SalasController@index');
-  Route::get('/salar/adicionar', 'SalasController@create');
-  Route::post('/salas', 'SalasController@store');
-  Route::get('/salas/{sala}/editar','SalasController@edit');
-  Route::post('/salas/{sala}', 'SalasController@update');
-  Route::get('/salas/{sala}', 'SalasController@show');
-  Route::post('salas/{sala}/excluir', 'SalasController@destroy');
+  Route::get('/salas', 'SalaController@index');
+  Route::get('/salar/adicionar', 'SalaController@create');
+  Route::post('/salas', 'SalaController@store');
+  Route::get('/salas/{sala}/editar','SalaController@edit');
+  Route::post('/salas/{sala}', 'SalaController@update');
+  Route::get('/salas/{sala}', 'SalaController@show');
+  Route::post('salas/{sala}/excluir', 'SalaController@destroy');
 });
-
-Auth::routes();
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
