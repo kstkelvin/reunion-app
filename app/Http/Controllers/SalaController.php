@@ -61,7 +61,7 @@ class SalaController extends Controller
     Sala::create([
       'nome' => request('nome')
     ]);
-    return redirect('/salas')->with('success','Produto cadastrado com sucesso!');
+    return redirect('/salas');
   }
 
   /**
@@ -83,11 +83,11 @@ class SalaController extends Controller
   * @param  \App\Sala  $sala
   * @return \Illuminate\Http\Response
   */
-  public function edit(Sala $sala)
+  public function edit($id)
   {
     return view('salas.edit', [
-      $sala = Sala::where('id', $sala->id)->firstOrFail()
-    ]);
+      $sala = Sala::where('id', $id)->firstOrFail()
+    ], compact('sala'));
   }
 
   /**
@@ -97,9 +97,24 @@ class SalaController extends Controller
   * @param  \App\Sala  $sala
   * @return \Illuminate\Http\Response
   */
-  public function update(Request $request, Sala $sala)
+  public function update($id)
   {
-    //
+    $rules = array(
+      'nome' => 'required'
+    );
+    $messages = [
+      'nome.required'    => 'Favor inserir o nome da sala.'
+    ];
+    $validator = Validator::make(request()->all(), $rules, $messages);
+    // process the login
+    if ($validator->fails()) {
+      return redirect('salas/'. $id . '/editar')
+      ->withErrors($validator);
+    }
+    $sala = Sala::where('id', $id)->firstOrFail();
+    $sala->nome = request()->get('nome');
+    $sala->save();
+    return redirect('/salas'. $id);
   }
 
   /**
