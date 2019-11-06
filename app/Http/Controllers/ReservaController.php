@@ -85,6 +85,6 @@ class ReservaController extends Controller
      */
     public function destroy(Reserva $reserva)
     {
-        //
+        
     }
 }

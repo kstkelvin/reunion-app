@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sala;
+use App\Reserva;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Schema;
@@ -73,8 +74,9 @@ class SalaController extends Controller
   public function show($id)
   {
     return view('salas.show', [
-      $sala = Sala::where('id', $id)->firstOrFail()
-    ], compact('sala'));
+      $sala = Sala::where('id', $id)->firstOrFail();
+      $horarios = Reserva::where('sala_id', $id)->get();
+    ], compact('sala', 'horarios'));
   }
 
   /**
