@@ -15,6 +15,9 @@ class CreateReservasTable extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('sala_id');
+            $table->integer('user_id');
+            $table->timestamp('hora');
             $table->timestamps();
         });
     }
