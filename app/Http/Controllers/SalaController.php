@@ -74,8 +74,8 @@ class SalaController extends Controller
   public function show($id)
   {
     return view('salas.show', [
-      $sala = Sala::where('id', $id)->firstOrFail();
-      $horarios = Reserva::where('sala_id', $id)->get();
+      $sala = Sala::where('id', $id)->firstOrFail(),
+      $horarios = Reserva::where('sala_id', $id)->get()
     ], compact('sala', 'horarios'));
   }
 

@@ -20,7 +20,7 @@ class CreateReservasTable extends Migration
             ->onDelete('cascade');
             $table->integer('user_id')
             ->references('id')->on('users')
-            ->onDelete('cascade');
+            ->onDelete('cascade')->nullable;
             $table->date('data');
             $table->string('hora');//de timestamp para varchar
             $table->boolean('ocupado');
