@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reserva;
+use App\User;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -40,7 +41,11 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $reserva = Reserva::where('id', request()->get('id'))->firstOrFail();
+      $reserva->user_id = request()->get('user_id');
+      $reserva->ocupado = true;
+      $reserva->save();
+      return redirect('/home');
     }
 
     /**
@@ -85,6 +90,6 @@ class ReservaController extends Controller
      */
     public function destroy(Reserva $reserva)
     {
-        
+
     }
 }

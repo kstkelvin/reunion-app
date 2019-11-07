@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SalaController extends Controller
 {
@@ -59,9 +60,18 @@ class SalaController extends Controller
       return redirect('salas/adicionar')
       ->withErrors($validator);
     }
-    Sala::create([
+    $sala = Sala::create([
       'nome' => request('nome')
     ]);
+    for ($i=8; $i < 21; $i++) {
+      // code...
+      Reserva::create([
+        'hora' => $i.':00',
+        'sala_id' => $sala->id,
+        'user_id' => null,
+        'ocupado' => false
+      ]);
+    }
     return redirect('/salas');
   }
 
@@ -75,8 +85,13 @@ class SalaController extends Controller
   {
     return view('salas.show', [
       $sala = Sala::where('id', $id)->firstOrFail(),
-      $horarios = Reserva::where('sala_id', $id)->get()
-    ], compact('sala', 'horarios'));
+      $horarios = Reserva::where('sala_id', $id)->get(),
+      $reservas = DB::table('reservas')
+      ->join('users', 'users.id', '=', 'reservas.user_id')
+      ->select('reservas.hora')
+      ->where('users.id', '=', Auth::User()->id)
+      ->get()
+    ], compact('sala', 'horarios', 'reservas'));
   }
 
   /**

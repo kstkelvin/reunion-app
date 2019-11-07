@@ -20,8 +20,8 @@ class CreateReservasTable extends Migration
             ->onDelete('cascade');
             $table->integer('user_id')
             ->references('id')->on('users')
-            ->onDelete('cascade')->nullable;
-            $table->date('data');
+            ->onDelete('cascade')->nullable();
+            //$table->date('data');--> Desativada em prol de finalizar a funcionalidade de horas em antemão
             $table->string('hora');//de timestamp para varchar
             $table->boolean('ocupado');
             $table->timestamps();

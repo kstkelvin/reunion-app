@@ -14,13 +14,6 @@
 </template>
 
 <script>
-var app2 = new Vue({ el: '#app2',
-data: function () {
-  return {
-    dia_registro: '' + new Date().toLocaleString() + ''
-  }
-}
-})
     export default {
         props:['horarios']
     }

@@ -1853,14 +1853,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var app2 = new Vue({
-  el: '#app2',
-  data: function data() {
-    return {
-      dia_registro: '' + new Date().toLocaleString() + ''
-    };
-  }
-});
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['horarios']
 });
@@ -49364,18 +49356,30 @@ Vue.component('reserve-component', __webpack_require__(/*! ./components/ReserveC
 * or customize the JavaScript scaffolding to fit your unique needs.
 */
 
+var date = new Date();
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    dia_reserva: new Date()
+  },
+  methods: {
+    next: function next() {
+      this.dia_reserva.setDate(this.dia_reserva.getDate() + 1);
+    }
+  }
 });
 Vue.component('calendario', {
+  template: "\n  <div>\n  <a href=\"#\"> << </a>\n  <a href=\"#\"> < </a>\n  <p>{{dia_reserva}}</p>\n  <a href=\"#\" v-on:click=\"nextDay\">></a>\n  <a href=\"#\">>></a>\n  </div>\n  ",
   data: function data() {
     return {
-      dia: new Date().getDate(),
-      mes: parseInt(new Date().getMonth()) + 1,
-      ano: new Date().getFullYear()
+      dia_reserva: this.dia_reserva.getDate()
     };
   },
-  template: "\n  <div>\n    <a href=\"#\"> << </a>\n    <a href=\"#\"> < </a>\n    <p>{{ dia }}/{{ mes }}/{{ ano }}</p>\n    <a href=\"#\">></a>\n    <a href=\"#\">>></a>\n  </div>\n  "
+  methods: {
+    nextDay: function nextDay() {
+      this.$emit('next-day');
+    }
+  }
 });
 new Vue({
   el: '#components-reserva'

@@ -27,31 +27,41 @@ Vue.component('reserve-component', require('./components/ReserveComponent.vue').
 * or customize the JavaScript scaffolding to fit your unique needs.
 */
 
-
+var date = new Date();
 
 
 const app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    dia_reserva: new Date()
+  },
+  methods: {
+    next(){
+      this.dia_reserva.setDate(this.dia_reserva.getDate()+1)
+    }  
+  }
 });
 
 Vue.component('calendario', {
-  data:
-  function () {
-    return {
-      dia: new Date().getDate(),
-      mes: parseInt(new Date().getMonth())+1,
-      ano: new Date().getFullYear()
-    }
-  },
   template: `
   <div>
-    <a href="#"> << </a>
-    <a href="#"> < </a>
-    <p>{{ dia }}/{{ mes }}/{{ ano }}</p>
-    <a href="#">></a>
-    <a href="#">>></a>
+  <a href="#"> << </a>
+  <a href="#"> < </a>
+  <p>{{dia_reserva}}</p>
+  <a href="#" v-on:click="nextDay">></a>
+  <a href="#">>></a>
   </div>
-  `
+  `,
+  data() {
+    return {
+      dia_reserva: this.dia_reserva.getDate()
+    }
+  },
+  methods:{
+    nextDay(){
+      this.$emit('next-day')
+    }
+  }
 })
 
 new Vue({ el: '#components-reserva' })

@@ -24,6 +24,9 @@ Route::group(array('middleware' => 'auth'), function ()
   Route::post('/salas/{sala}', 'SalaController@update');
   Route::get('/salas/{sala}', 'SalaController@show');
   Route::post('salas/{sala}/excluir', 'SalaController@destroy');
+
+  Route::post('/reservas', 'ReservaController@store');
+
 });
 
 Auth::routes();
