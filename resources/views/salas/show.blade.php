@@ -44,7 +44,7 @@
                 @endif
               @elseif ($horario->user_id == Auth::User()->id)
                 <button form="delete_reserva" formmethod="post">{{ __('Cancelar') }}</button>
-                <form action="#" id="delete_reserva" method="POST">
+                <form action="/reservas/{{ $horario->id }}/excluir" id="delete_reserva" method="POST">
                   {{csrf_field()}}
                   <input type="hidden" name="id" value="{{$horario->id}}" />
                 </form>
