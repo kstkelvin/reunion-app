@@ -71699,20 +71699,20 @@ var app = new Vue({
 Vue.component('reserva', {
   data: function data() {
     return {
-      dia_registrado: moment__WEBPACK_IMPORTED_MODULE_0___default()()
+      dia_reserva: Date.now()
     };
   },
   methods: {
     add_day: function add_day() {
-      this.dia_registrado.add(1, 'days');
+      this.dia_reserva = this.dia_reserva.getDate() + 1;
     }
   },
   computed: {
     show_day: function show_day() {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()(this.dia_registrado).format('L');
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(this.dia_reserva).format('L');
     }
   },
-  template: '<button v-on:click="add_day()">{{ show_day }}</button>'
+  template: '<button v-on:click="add_day()">{{ dia_reserva | moment("L") }}</button>'
 });
 new Vue({
   el: '#dia-reserva'

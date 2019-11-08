@@ -38,8 +38,6 @@ Vue.component('reserve-component', require('./components/ReserveComponent.vue').
 * or customize the JavaScript scaffolding to fit your unique needs.
 */
 
-var date = new Date();
-
 
 const app = new Vue({
   el: '#app'
@@ -48,20 +46,25 @@ const app = new Vue({
 Vue.component('reserva', {
   data: function () {
     return {
-      dia_registrado: moment()
+      this.dia_reserva
     }
   },
   methods: {
     add_day: function () {
-      this.dia_registrado.add(1, 'days');
+      this.dia_reserva = moment(this.dia_reserva).add(1,'days')
     }
   },
   computed: {
     show_day: function (){
-      return moment(this.dia_registrado).format('L')
+      return moment(this.dia_reserva).format('L')
     }
   },
-  template: '<button v-on:click="add_day()">{{ show_day }}</button>'
+  template: '<button v-on:click="add_day">{{ show_day }}</button>'
 })
 
-new Vue({ el: '#dia-reserva' })
+new Vue({
+  el: '#dia-reserva',
+  data:{
+  dia_reserva: moment()
+  }
+})
