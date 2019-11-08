@@ -30,6 +30,9 @@
           </div>
 
           <div class="card-body">
+            <div id="dia-reserva">
+              <reserva></reserva>
+            </div>
             <table class="table-sm table table-borderless">
               <thead>
 

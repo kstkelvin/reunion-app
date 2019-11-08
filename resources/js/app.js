@@ -3,10 +3,21 @@
 * includes Vue and other libraries. It is a great starting point when
 * building robust, powerful web applications using Vue and Laravel.
 */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+import moment from 'moment';
+import VueMoment from 'vue-moment';
+
+// Load Locales ('en' comes loaded by default)
+require('moment/locale/pt-br');
+
+// Choose Locale
+moment.locale('pt-br');
+
+Vue.use(VueMoment, { moment });
+
 
 /**
 * The following block of code may be used to automatically register your
@@ -31,37 +42,26 @@ var date = new Date();
 
 
 const app = new Vue({
-  el: '#app',
-  data: {
-    dia_reserva: new Date()
-  },
-  methods: {
-    next(){
-      this.dia_reserva.setDate(this.dia_reserva.getDate()+1)
-    }  
-  }
+  el: '#app'
 });
 
-Vue.component('calendario', {
-  template: `
-  <div>
-  <a href="#"> << </a>
-  <a href="#"> < </a>
-  <p>{{dia_reserva}}</p>
-  <a href="#" v-on:click="nextDay">></a>
-  <a href="#">>></a>
-  </div>
-  `,
-  data() {
+Vue.component('reserva', {
+  data: function () {
     return {
-      dia_reserva: this.dia_reserva.getDate()
+      dia_registrado: moment()
     }
   },
-  methods:{
-    nextDay(){
-      this.$emit('next-day')
+  methods: {
+    add_day: function () {
+      this.dia_registrado.add(1, 'days');
     }
-  }
+  },
+  computed: {
+    show_day: function (){
+      return moment(this.dia_registrado).format('L')
+    }
+  },
+  template: '<button v-on:click="add_day()">{{ show_day }}</button>'
 })
 
-new Vue({ el: '#components-reserva' })
+new Vue({ el: '#dia-reserva' })
